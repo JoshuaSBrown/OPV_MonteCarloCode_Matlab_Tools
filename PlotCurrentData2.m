@@ -14,7 +14,7 @@ if(strcmp(FileType,'X')==1)
     Voltage = str2num(FileName(word1+2:word2-1));
     
 elseif(strcmp(FileType,'Y')==1)
-    code = 1;
+    code = 2;
     
     word1 = strfind(FileName,'Vy');
     word2 = strfind(FileName,'Vz');
@@ -79,21 +79,7 @@ for i=1:length(Store)
     end
 end
 
-v_avg = v_sum/TotalNumberCharges;
-if(code==1)
-   Efield = Voltage/Distance;
-   mobility = v_avg/Efield;
-   fprintf('Mobility in X direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
-elseif(code==2)
-   Efield = Voltage/Distance;
-   mobility = v_avg/Efield;
-   fprintf('Mobility in Y direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
-else
-   Efield = Voltage/Distance;
-   mobility = v_avg/Efield; 
-   fprintf('Mobility in Z direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
 
-end
 
 count = count-1;
 %Put data in separate matrix
@@ -477,4 +463,21 @@ end
     figure(100);
     hold on
     avg = mean(PlotStore(:,7));
+    
+    v_avg = v_sum/TotalNumberCharges;
+    if(code==1)
+        Efield = Voltage/Distance;
+        mobility = v_avg/Efield;
+        fprintf('Mobility in X direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+    elseif(code==2)
+        Efield = Voltage/Distance;
+        mobility = v_avg/Efield;
+        fprintf('Mobility in Y direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+    else
+        Efield = Voltage/Distance;
+        mobility = v_avg/Efield;
+        fprintf('Mobility in Z direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+        
+    end
+    
 end

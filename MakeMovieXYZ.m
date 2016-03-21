@@ -44,7 +44,7 @@ end
 NumberLarge = max(NumberList);
 [~,cols2] = size(SaveStr);
 
-Avg = 30;
+Avg = 1;
 %Now sorting through the different files we are going to create a movie
 for i=1:cols2
     

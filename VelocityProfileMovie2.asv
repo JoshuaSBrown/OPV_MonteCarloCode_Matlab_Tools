@@ -116,13 +116,11 @@ for i=1:cols2
                    Vel = (MV(:,1)-MV_old(:,1))*SiteDist/(TimeStamp-TimeStamp_old);
                    ID = MV(:,4);
                 else
-                    
-                   %Find out how many differences exist based on the size
-                   %of the matrix
+                   %Find out how many differences exist
                    if abs(length(MV_old))>abs(length(MV))
                       MaxLen = length(MV_old);
                    else
-                      MaxLen = length(MV);
+                      MaxLen = length(MV_old);
                    end
                    
                    lendiff = abs(length(MV_old)-length(MV));
@@ -130,24 +128,20 @@ for i=1:cols2
                    addtodiff = 0;
                    inc_old = 0;
                    inc_new = 0;
-                   m=1;
-                   while m<=(MaxLen-lendiff) && (m+inc_old)<(MaxLen-lendiff) && (m+inc_new)<(MaxLen-lendiff)
+                   for m=1:(MaxLen-lendiff)
                       
                        if((m+inc_old)>length(MV_old) || (m+inc_new)>length(MV))
                           display('Stop') 
                        end
                        
                        while MV_old(m+inc_old,4)~=MV(m+inc_new,4)
-                           
-                           addtodiff = addtodiff+1;
-                           if MV_old(m+inc_old,4)<MV(m+inc_new,4)
+                            addtodiff = addtodiff+1;
+                            if MV_old(m+inc_old,4)>MV(m+inc_new,4)
+                               inc_new = inc_new+1; 
+                            else
                                inc_old = inc_old+1;
-                           elseif MV(m+inc_new,4)<MV_old(m+inc_old,4)
-                               inc_new = inc_new+1;
-                           end
-                           
+                            end
                        end
-                       m=m+1;
                    end
                    
                    diff = lendiff+addtodiff;
