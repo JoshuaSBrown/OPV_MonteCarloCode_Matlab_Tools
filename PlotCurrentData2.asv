@@ -45,6 +45,30 @@ count2 = 0;
 
 A = textscan(fid,'%f %f %d %d %d %f %f');
 
+% A = fgetl(fid);
+% B = str2num(A);
+% 
+% 
+% Store = zeros(buffer,col);
+% 
+% while( A~=-1)
+%     
+%     B = str2num(A);
+%     
+%     count2 = count2+1;
+%     count = count+1;
+%     
+%     Store(count,:) = B;
+%     
+%     A = fgetl(fid);
+%     
+%     if (rem(count2,buffer)==0)
+%         
+%         Store = [ Store; zeros(buffer,col) ];
+%         count2 = 0;
+%     end
+%     
+% end
 Store = zeros(length(A{1}),length(A));
 for i=1:length(A)
     Store(:,i)=A{i}; 
@@ -52,7 +76,8 @@ end
 
 clear A
 
-[count, col] = size(Store);
+[~, col] = size(A);
+count = length(Store);
 
 %Lets calculate the average drift velocity
 v_sum = 0;
@@ -96,7 +121,7 @@ if(count>(Resolution-1))
         if(count3>=limit)
                 
             count4 = count4+1;
-            count3/count
+            
             PlotStore(count4,:) = Elem./divisor;
             Elem = zeros(1,col);
             divisor = 0;
