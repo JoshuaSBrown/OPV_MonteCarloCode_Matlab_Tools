@@ -1,4 +1,5 @@
 %Generate avi movie
+%This script useses the .xyz files to create a velocity profile 
 clear
 close all
 fclose all
