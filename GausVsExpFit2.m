@@ -14,6 +14,8 @@ C = textscan(fid,'%f %f');
 Energies = C{1};
 Count = C{2};
 
+display(sum(Count))
+display(sum(Count)*(Energies(2)-Energies(1)))
 [ ~, ELEM] = max(Count);
 MidE = -1*Energies(ELEM);
 
@@ -196,19 +198,22 @@ if (MinRval<Exp_RMSE && MinRval<Gaus_RMSE)
     figure
     plot(Energies,Count/Volume,'o');
     hold on
-    plot(Energies,feval(Gaus_fitresult_i,Energies)/Volume);
-    plot(Energies,feval(Exp_fitresult_i,Energies)/Volume);
+    plot(Energies,feval(Gaus_fitresult_i,Energies)/Volume,'LineWidth',2);
+    plot(Energies,feval(Exp_fitresult_i,Energies)/Volume,'LineWidth',2);
     set(gcf,'Color','w');
+    set(gca,'FontSize',18);
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
+    axis([-5.6 -4.8 0 13E19]);
     legend('Data','Gausian','Exponential')
     legend boxoff
     figure
     semilogy(Energies,Count/Volume,'o');
     hold on
-    semilogy(Energies,feval(Gaus_fitresult_i,Energies)/Volume);
-    semilogy(Energies,feval(Exp_fitresult_i,Energies)/Volume);
+    semilogy(Energies,feval(Gaus_fitresult_i,Energies)/Volume,'LineWidth',2);
+    semilogy(Energies,feval(Exp_fitresult_i,Energies)/Volume,'LineWidth',2);
     set(gcf,'Color','w');
+    set(gca,'FontSize',18);
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
     legend('Data','Gausian','Exponential')
@@ -217,17 +222,20 @@ elseif( Exp_RMSE<Gaus_RMSE)
     figure(3)
     plot(Energies,Count/Volume,'o');
     hold on
-    plot(Energies,feval(Exp_fitresult,Energies)/Volume);
+    plot(Energies,feval(Exp_fitresult,Energies)/Volume,'LineWidth',2);
     set(gcf,'Color','w');
+    set(gca,'FontSize',18);
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
     legend('Data','Exponential')
     legend boxoff
+    axis([-5.6 -4.8 0 13E19]);
     figure(4)
     semilogy(Energies,Count/Volume,'o');
     hold on
-    semilogy(Energies,feval(Exp_fitresult,Energies)/Volume);
+    semilogy(Energies,feval(Exp_fitresult,Energies)/Volume,'LineWidth',2);
     set(gcf,'Color','w');
+    set(gca,'FontSize',18);
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
     legend('Data','Exponential')
@@ -236,17 +244,20 @@ else
     figure(5)
     plot(Energies,Count/Volume,'o');
     hold on
-    plot(Energies,feval(Gaus_fitresult,Energies)/Volume);
+    plot(Energies,feval(Gaus_fitresult,Energies)/Volume,'LineWidth',2);
     set(gcf,'Color','w');
+    set(gca,'FontSize',18);
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
     legend('Data','Gausian')
+    axis([-5.6 -4.8 0 13E19]);
     legend boxoff
     figure(6)
     semilogy(Energies,Count/Volume,'o');
     hold on
-    semilogy(Energies,feval(Gaus_fitresult,Energies)/Volume);
+    semilogy(Energies,feval(Gaus_fitresult,Energies)/Volume,'LineWidth',2);
     set(gcf,'Color','w');
+    set(gca,'FontSize',18);
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
     legend('Data','Gausian')
