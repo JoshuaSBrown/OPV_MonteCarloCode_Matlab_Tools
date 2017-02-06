@@ -248,7 +248,7 @@ for i=1:cols2
 %                     Vmax = max(Vel)*0.9;
 %                 end
                 
-                Res = 50;
+                Res = 30;
                 if rem(Res,2)==1
                    error('Must use a resolution that is even other wise charges with 0 velocity will be placed as positive or negative value when binned!'); 
                 end
@@ -286,10 +286,11 @@ for i=1:cols2
                     Vel_5(ID(n)+1,1)=Vel_5(ID(n)+1,1)+Vel(n);
                 end
                 
-                if count ==5
+                Resolution2 = 15;
+                if count == Resolution2
                     
                     %Average
-                    Vel_5 = Vel_5/5;
+                    Vel_5 = Vel_5/Resolution2;
                     
                     range = linspace(-Vedge,Vedge,Res);
                     Vinc = range(2)-range(1);
