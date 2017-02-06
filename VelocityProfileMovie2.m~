@@ -7,9 +7,14 @@ dir = pwd;
 
 list = ls;
 
-[values, ~] = strsplit(list(1,:),'.xyz');
-large = length(values);
-r = large;
+[r, c]=size(list);
+[str, str2] = strsplit(str,'.xyz');
+
+large = r;
+if(c>r)
+    large = c;
+end
+
 j=1;
 k=1;
 NumberList = [];
@@ -38,11 +43,9 @@ for i=1:large
                 k=k+1;
             end
         end
-        
-        if(length(str)<2)
-           r = large-1;
-           break; 
-        end
+        i
+        str{1}
+        str{2}
         number = str2num(str{2});
         display(number)
         NumberList = [NumberList; number];
@@ -83,12 +86,12 @@ for i=1:cols2
     %cycle throught the numberlist
     for j=1:NumberLarge
         
-        FileName = strcat(dir,'/',FileNameTentative,num2str(j-1),'.xyz');
+        FileName = strcat(dir,'\',FileNameTentative,num2str(j),'.xyz');
         
         if exist(FileName,'file')
             [MV, Dimensions, SiteDist, TimeStamp]=ReadMovieData2(FileName);
             
-            if (flag2==0)
+            if (flag2==0);
                 flag2 = 1;
                 X = ones(Dimensions(1,1)+1,Dimensions(3,1)+1);
                 Z = ones(Dimensions(1,1)+1,Dimensions(3,1)+1);
@@ -113,6 +116,8 @@ for i=1:cols2
             %Reorder the Movie frame so that they are in order of
             %chages id
             MV = MV((Order(:)),:);
+            
+           
             
             if length(MV_old)~=1
                 
