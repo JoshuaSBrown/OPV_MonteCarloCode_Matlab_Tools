@@ -224,7 +224,7 @@ hold on
 plot(t,y);
 plot(t,y2);
 axis([min(log(PlotStore(:,1))) log(PlotStore(finish+40,1)) ...
-    log(temp(finish-1,1)) max(log(temp(1:finish-1,1)))*1.1]);
+    log(temp(finish-1,1)) max(log(temp(1:finish-1,1)))*1.1]	);
 fprintf('Alpha High %f Alpha Low %f\n',1-abs(fitresult_final.p1),abs(fitresult_final2.p1)-1);
 set(gcf,'Color','w');
 subplot(1,2,1);

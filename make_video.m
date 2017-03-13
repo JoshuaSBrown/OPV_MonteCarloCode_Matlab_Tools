@@ -4,7 +4,7 @@ function make_video(video_dirs,extension,aviname,fps)
       aviobj.FrameRate=fps;
       open(aviobj);
       
-      [FileName, ~]=strsplit(resnames(1).name,'Frame');
+      [FileName, ~]=strsplit(resnames.name,'Frame');
       FileName = strcat(FileName{1},'Frame');
       for i=1:length(resnames)
           img=imread(fullfile(video_dirs,strcat(FileName,num2str(i),'.jpg')));

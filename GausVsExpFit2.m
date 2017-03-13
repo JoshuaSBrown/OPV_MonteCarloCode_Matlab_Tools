@@ -195,8 +195,8 @@ if (MinRval<Exp_RMSE && MinRval<Gaus_RMSE)
     % Fit model to data.
     [Gaus_fitresult_i, Gaus_gof_i] = fit( Gaus_xData_i, Gaus_yData_i, ft, opts );
     
-    figure
-    plot(Energies,Count/Volume,'o');
+    figure(1)
+    plot(Energies,Count/Volume,'o','MarkerSize',10,'LineWidth',2);
     hold on
     plot(Energies,feval(Gaus_fitresult_i,Energies)/Volume,'LineWidth',2);
     plot(Energies,feval(Exp_fitresult_i,Energies)/Volume,'LineWidth',2);
@@ -204,23 +204,27 @@ if (MinRval<Exp_RMSE && MinRval<Gaus_RMSE)
     set(gca,'FontSize',18);
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
-    axis([-5.6 -4.8 0 13E19]);
+    axis([-5.6 -4.8 0 6E19]);
     legend('Data','Gausian','Exponential')
     legend boxoff
-    figure
-    semilogy(Energies,Count/Volume,'o');
+    figure(2)
+    semilogy(Energies,Count/Volume,'o','MarkerSize',10,'LineWidth',2);
     hold on
     semilogy(Energies,feval(Gaus_fitresult_i,Energies)/Volume,'LineWidth',2);
     semilogy(Energies,feval(Exp_fitresult_i,Energies)/Volume,'LineWidth',2);
+    axis([ -5.6 -4.8 ...
+          10^15 10^20]);
     set(gcf,'Color','w');
     set(gca,'FontSize',18);
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
     legend('Data','Gausian','Exponential')
     legend boxoff
+    set(gca, 'YTick',[10^15 10^16 10^17 10^18 10^19 10^20])
+
 elseif( Exp_RMSE<Gaus_RMSE)
     figure(3)
-    plot(Energies,Count/Volume,'o');
+    plot(Energies,Count/Volume,'o','MarkerSize',10,'LineWidth',2);
     hold on
     plot(Energies,feval(Exp_fitresult,Energies)/Volume,'LineWidth',2);
     set(gcf,'Color','w');
@@ -229,20 +233,25 @@ elseif( Exp_RMSE<Gaus_RMSE)
     ylabel('DOS [cm^-^3]');
     legend('Data','Exponential')
     legend boxoff
-    axis([-5.6 -4.8 0 13E19]);
+    axis([-5.6 -4.8 0 6E19]);
     figure(4)
-    semilogy(Energies,Count/Volume,'o');
+    semilogy(Energies,Count/Volume,'o','MarkerSize',10,'LineWidth',2);
     hold on
     semilogy(Energies,feval(Exp_fitresult,Energies)/Volume,'LineWidth',2);
+    axis([ -5.6 -4.8 ...
+          10^15 10^20]);
     set(gcf,'Color','w');
     set(gca,'FontSize',18);
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
     legend('Data','Exponential')
     legend boxoff
+    set(gca, 'YTick',[10^15 10^16 10^17 10^18 10^19 10^20])
+
+    
 else
     figure(5)
-    plot(Energies,Count/Volume,'o');
+    plot(Energies,Count/Volume,'o','MarkerSize',10,'LineWidth',2);
     hold on
     plot(Energies,feval(Gaus_fitresult,Energies)/Volume,'LineWidth',2);
     set(gcf,'Color','w');
@@ -250,17 +259,20 @@ else
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
     legend('Data','Gausian')
-    axis([-5.6 -4.8 0 13E19]);
+    axis([-5.6 -4.8 0 6E19]);
     legend boxoff
     figure(6)
-    semilogy(Energies,Count/Volume,'o');
+    semilogy(Energies,Count/Volume,'o','MarkerSize',10,'LineWidth',2);
     hold on
     semilogy(Energies,feval(Gaus_fitresult,Energies)/Volume,'LineWidth',2);
+    axis([ -5.6 -4.8 ...
+          10^15 10^20]);
     set(gcf,'Color','w');
     set(gca,'FontSize',18);
     xlabel('Energy [eV]');
     ylabel('DOS [cm^-^3]');
     legend('Data','Gausian')
     legend boxoff
+    set(gca, 'YTick',[10^15 10^16 10^17 10^18 10^19 10^20])
+
 end
-    

@@ -5,7 +5,7 @@ function Energy_bin2( FileName )
 %Unlike previous version we will start using a fixed energy increment
 %Resolution and min and max value
 
-bins = 100;
+bins = 200;
 EnergyMin = -5.6;
 EnergyMax = -4.8;
 
