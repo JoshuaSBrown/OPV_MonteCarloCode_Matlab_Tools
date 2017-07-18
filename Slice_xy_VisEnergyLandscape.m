@@ -53,7 +53,7 @@ set(h,'edgecolor','none');
 xlabel('X-axis [nm]');
 ylabel('Y-axis [nm]');
 zlabel('Energy [eV]');
-set(gca,'FontSize',16)
+set(gca,'FontSize',18)
 shading interp
 % view(50,40)
 lightangle(45,-50)
