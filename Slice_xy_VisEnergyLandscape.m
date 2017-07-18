@@ -53,6 +53,7 @@ set(h,'edgecolor','none');
 xlabel('X-axis [nm]');
 ylabel('Y-axis [nm]');
 zlabel('Energy [eV]');
+set(gca,'FontSize',16)
 shading interp
 % view(50,40)
 lightangle(45,-50)
@@ -64,6 +65,7 @@ h.SpecularExponent = 25;
 h.BackFaceLighting = 'unlit';
 zlim([-5.35 -5.05]);
 set(gca, 'CLim', [-5.35, -5.05]);
+set(gca,'ZTick',linspace(-5.35,-5.05,2))
 daspect([ 1 1 0.01]);
 mymap = [ 0 0 1
 0 1 1
