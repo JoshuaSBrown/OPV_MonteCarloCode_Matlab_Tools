@@ -64,7 +64,7 @@ h.SpecularStrength = 0.1;
 h.SpecularExponent = 25;
 h.BackFaceLighting = 'unlit';
 zlim([-5.35 -5.05]);
-set(gca, 'CLim', [-5.3, -5.1]);
+set(gca, 'CLim', [-5.35, -5.05]);
 set(gca,'ZTick',linspace(-5.3,-5.1,2))
 daspect([ 1 1 0.01]);
 mymap = [ 0 0 1
