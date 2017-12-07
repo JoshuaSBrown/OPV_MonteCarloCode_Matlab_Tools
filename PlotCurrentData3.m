@@ -91,7 +91,7 @@ if (col==3)
     plot(PlotStore(:,1),PlotStore(:,2));
     %plot(TStore(:,1),TStore(:,2),'r');
     xlabel('Time [s]');
-    ylabel('Current [Amps]');
+    ylabel('Current [A]');
     set(gcf,'color','w');
 %     
 %     subplot(3,1,2);
@@ -101,10 +101,11 @@ if (col==3)
 %     ylabel('Velocity [m/s]');
     
     subplot(2,1,2);
+    set(gca,'yscale','log')
     hold on
-    plot(PlotStore(:,1),log(PlotStore(:,3)));
+    semilogy(PlotStore(:,1),(PlotStore(:,3)));
     xlabel('Time [s]');
-    ylabel('log Velocity [m/s]');
+    ylabel('Velocity [m/s]');
     
 elseif(col == 3)
     
@@ -115,7 +116,7 @@ elseif(col == 3)
     plot(PlotStore(:,1),PlotStore(:,2));
     %plot(TStore(:,1),TStore(:,2),'r');
     xlabel('Time [s]');
-    ylabel('Current [Amps]');
+    ylabel('Current [A]');
     set(gcf,'color','w');
     
     subplot(2,2,2);
@@ -128,7 +129,7 @@ elseif(col == 3)
     hold on
     plot(PlotStore(:,1),PlotStore(:,4));
     xlabel('Time [s]');
-    ylabel('Mobility [cm2/(V s)]');
+    ylabel('Mobility [cm^{2}/(V s)]');
     
 elseif (col==7)
     
@@ -143,14 +144,14 @@ elseif (col==7)
     hold on
     plot(PlotStore(:,1),smooth(PlotStore(:,2)),'LineWidth',2);
     xlabel('Time [s]');
-    ylabel('Current');
+    ylabel('Current [A]');
     
     subplot(2,2,2);
     plot(PlotStore(:,1),PlotStore(:,3),'.');
     hold on
     plot(PlotStore(:,1),smooth(PlotStore(:,3)),'LineWidth',2);
     xlabel('Time [s]');
-    ylabel('Charges Reaching Source Electrode');
+    ylabel('Charges Reaching Source');
     
     subplot(2,2,3);
     plot(PlotStore(:,1),PlotStore(:,4),'.');
@@ -181,13 +182,13 @@ elseif (col==7)
     hold on
     plot(PlotStore(:,1),smooth(PlotStore(:,2)),'LineWidth',2);
     xlabel('Time [s]');
-    ylabel('Current');
+    ylabel('Current [A]');
     
     subplot(2,2,2);
     hold on
     plot(PlotStore(:,1),smooth(PlotStore(:,3)),'LineWidth',2);
     xlabel('Time [s]');
-    ylabel('Charges Reaching Source Electrode');
+    ylabel('Charges Reaching Source');
     
     subplot(2,2,3);
     hold on;
@@ -201,7 +202,7 @@ elseif (col==7)
     xlabel('Time [s]');
     ylabel('Charges within System');
     
-    yy1 = smooth(log(PlotStore(:,1)),log(temp),0.2,'loess');
+    yy1 = (smooth(log(PlotStore(:,1)),(temp),0.2,'loess'));
     
     %Compare with Data Figure 3
     h = figure(FigNum);
@@ -211,11 +212,11 @@ elseif (col==7)
     set(gcf,'position',[10 90 900 800])
     
     subplot(2,1,1);
-    plot(PlotStore(:,1),log(PlotStore(:,6)),'.');
+    semilogy(PlotStore(:,1),(PlotStore(:,6)),'.');
     hold on
-    plot(PlotStore(:,1),yy1,'LineWidth',2);
+    semilogy(PlotStore(:,1),yy1,'LineWidth',2);
     xlabel('Time[s]');
-    ylabel('log Drift Velocity [m/s]');
+    ylabel('Drift Velocity [m/s]');
     
     temp = smooth(PlotStore(:,7));
     co = 1;
@@ -223,14 +224,15 @@ elseif (col==7)
         temp = smooth(temp);
         co = co+1;
     end
-    yy3 = smooth(log(PlotStore(:,1)),log(temp),0.2,'rloess');
+    yy3 = (smooth(log(PlotStore(:,1)),(temp),0.2,'rloess'));
     
     subplot(2,1,2);
-    plot(PlotStore(:,1),log(PlotStore(:,7)),'.');
+    set(gca,'yscale','log')
+    semilogy(PlotStore(:,1),(PlotStore(:,7)),'.');
     hold on
-    plot(PlotStore(:,1),yy3,'LineWidth',2);
+    semilogy(PlotStore(:,1),yy3,'LineWidth',2);
     xlabel('Time [s]');
-    ylabel('log Mobility [cm2 / (V s)]');
+    ylabel('Mobility [cm^{2}/(Vs)]');
     
     %Compare with other figure Figure 4
     figure(FigNum);
@@ -238,16 +240,18 @@ elseif (col==7)
     set(gcf,'position',[10 90 900 800])
     
     subplot(2,1,1);
+    set(gca,'yscale','log')
     hold on
-    plot(PlotStore(:,1),yy1,'LineWidth',2);
+    semilogy(PlotStore(:,1),yy1,'LineWidth',2);
     xlabel('Time[s]');
-    ylabel('log Drift Velocity [m/s]');
+    ylabel('Drift Velocity [m/s]');
     
     subplot(2,1,2);
+    set(gca,'yscale','log')
     hold on
-    plot(PlotStore(:,1),yy3,'LineWidth',2);
+    semilogy(PlotStore(:,1),yy3,'LineWidth',2);
     xlabel('Time [s]');
-    ylabel('log Mobility [cm2 / (V s)]');
+    ylabel('Mobility [cm^{2}/(Vs)]');
     
     %Data vs smooth Figure 5
     h = figure(FigNum);
@@ -257,18 +261,18 @@ elseif (col==7)
     set(gcf,'position',[10 90 900 800])
     
     subplot(2,1,1);
-    plot(log(PlotStore(:,1)),log(PlotStore(:,6)),'.');
+    loglog(PlotStore(:,1),(PlotStore(:,6)),'.');
     hold on
-    plot(log(PlotStore(:,1)),yy1,'LineWidth',2);
-    xlabel('log Time[s]');
-    ylabel('log Drift Velocity [m/s]');
+    loglog(PlotStore(:,1),yy1,'LineWidth',2);
+    xlabel('Time[s]');
+    ylabel('Drift Velocity [m/s]');
     
     subplot(2,1,2);
-    plot(log(PlotStore(:,1)),log(PlotStore(:,7)),'.');
+    semilogx(PlotStore(:,1),PlotStore(:,7),'.');
     hold on
-    plot(log(PlotStore(:,1)),yy3,'LineWidth',2);
-    xlabel('log Time [s]');
-    ylabel('log Mobility [cm2 / (V s)]'); 
+    semilogx(PlotStore(:,1),yy3,'LineWidth',2);
+    xlabel('Time [s]');
+    ylabel('Mobility [cm^{2}/(Vs)]'); 
     
     %Data vs other plot Figure 6
     figure(FigNum);
@@ -276,16 +280,18 @@ elseif (col==7)
     set(gcf,'position',[10 90 900 800])
     
     subplot(2,1,1);
+    set(gca,'xscale','log')
     hold on
-    plot(log(PlotStore(:,1)),yy1,'LineWidth',2);
-    xlabel('log Time[s]');
-    ylabel('log Drift Velocity [m/s]');
+    semilogx(PlotStore(:,1),yy1,'LineWidth',2);
+    xlabel('Time[s]');
+    ylabel('Drift Velocity [m/s]');
     
     subplot(2,1,2);
+    set(gca,'xscale','log')
     hold on
-    plot(log(PlotStore(:,1)),yy3,'LineWidth',2);
-    xlabel('log Time [s]');
-    ylabel('log Mobility [cm2 / (V s)]'); 
+    semilogx(PlotStore(:,1),yy3,'LineWidth',2);
+    xlabel('Time [s]');
+    ylabel('Mobility [cm^{2}/(Vs)]'); 
     
     %log log plot
     %data vs smooth Figure 7
@@ -302,27 +308,29 @@ elseif (col==7)
         temp = smooth(temp);
         co = co+1;
     end
-    plot(log(PlotStore(:,1)),log(PlotStore(:,2)),'.');
+    loglog(PlotStore(:,1),PlotStore(:,2),'.');
     hold on
-    plot(log(PlotStore(:,1)),(log(temp)),'LineWidth',2);
+    loglog(PlotStore(:,1),(temp),'LineWidth',2);
     xlabel('Time [s]');
-    ylabel('Current');
+    ylabel('Current [A]');
     
     subplot(2,2,2);
-    plot(log(PlotStore(:,1)),log(PlotStore(:,3)),'.');
+    loglog(PlotStore(:,1),PlotStore(:,3),'.');
     xlabel('Time [s]');
-    ylabel('Charges Reaching Source Electrode');
+    ylabel('Charges Reaching Source');
     
     subplot(2,2,3);
-    plot(log(PlotStore(:,1)),log(PlotStore(:,4)),'.');
+    loglog(PlotStore(:,1),PlotStore(:,4),'.');
     hold on
-    plot(log(PlotStore(:,1)),log(smooth(PlotStore(:,4))),'LineWidth',2);
+    loglog(PlotStore(:,1),smooth(PlotStore(:,4)),'LineWidth',2);
     xlabel('Time [s]');
     ylabel('Charges Reaching Drain');
     subplot(2,2,4);
-    plot(log(PlotStore(:,1)),log(PlotStore(:,5)),'.');
+    set(gca,'xscale','log','yscale','log')
+    loglog(PlotStore(:,1),PlotStore(:,5),'.');
+    set(gca,'xscale','log','yscale','log')
     hold on
-    plot(log(PlotStore(:,1)),log(smooth(PlotStore(:,5))),'LineWidth',2);
+    loglog(PlotStore(:,1),smooth(PlotStore(:,5)),'LineWidth',2);
     xlabel('Time [s]');
     ylabel('Charges within System');
     
@@ -332,26 +340,30 @@ elseif (col==7)
     set(gcf,'position',[ 10 90 900 800])
     
     subplot(2,2,1);
+    set(gca,'xscale','log','yscale','log')
     hold on
-    plot(log(PlotStore(:,1)),(log(temp)),'LineWidth',2);
+    loglog(PlotStore(:,1),(temp),'LineWidth',2);
     xlabel('Time [s]');
-    ylabel('Current');
+    ylabel('Current [A]');
     
     subplot(2,2,2);
+    set(gca,'xscale','log','yscale','log')
     hold on
-    plot(log(PlotStore(:,1)),log(PlotStore(:,3)),'.');
+    loglog(PlotStore(:,1),PlotStore(:,3),'.');
     xlabel('Time [s]');
-    ylabel('Charges Reaching Source Electrode');
+    ylabel('Charges Reaching Source');
     
     subplot(2,2,3);
+    set(gca,'xscale','log','yscale','log')
     hold on
-    plot(log(PlotStore(:,1)),log(smooth(PlotStore(:,4))),'LineWidth',2);
+    loglog(PlotStore(:,1),smooth(PlotStore(:,4)),'LineWidth',2);
     xlabel('Time [s]');
     ylabel('Charges Reaching Drain');
     
     subplot(2,2,4);
     hold on
-    plot(log(PlotStore(:,1)),log(smooth(PlotStore(:,5))),'LineWidth',2);
+    set(gca,'xscale','log','yscale','log')
+    loglog(PlotStore(:,1),smooth(PlotStore(:,5)),'LineWidth',2);
     xlabel('Time [s]');
     ylabel('Charges within System');
     
@@ -364,12 +376,12 @@ elseif (col==6)
     hold on
     plot(PlotStore(:,1),PlotStore(:,2));
     xlabel('Time [s]');
-    ylabel('Current');
+    ylabel('Current [A]');
     subplot(2,2,2);
     hold on
     plot(PlotStore(:,1),PlotStore(:,3));
     xlabel('Time [s]');
-    ylabel('Charges Reaching Source Electrode');
+    ylabel('Charges Reaching Source');
     subplot(2,2,3);
     hold on
     plot(PlotStore(:,1),PlotStore(:,4));
@@ -394,18 +406,21 @@ elseif (col==6)
     FigNum = FigNum+1;
     set(gcf,'position',[ 10 90 900 800])
     subplot(2,2,1);
+    set(gca,'xscale','log','yscale','log')
     hold on
-    plot(log(PlotStore(:,1)),log(PlotStore(:,2)));
+    loglog(PlotStore(:,1),PlotStore(:,2));
     xlabel('Time [s]');
     ylabel('Current');
     subplot(2,2,2);
+    set(gca,'xscale','log','yscale','log')
     hold on
-    plot(log(PlotStore(:,1)),log(PlotStore(:,3)));
+    loglog(PlotStore(:,1),PlotStore(:,3));
     xlabel('Time [s]');
-    ylabel('Charges Reaching Source Electrode');
+    ylabel('Charges Reaching Source');
     subplot(2,2,3);
+    set(gca,'xscale','log','yscale','log')
     hold on
-    plot(log(PlotStore(:,1)),log(PlotStore(:,4)));
+    loglog(PlotStore(:,1),PlotStore(:,4));
     xlabel('Time [s]');
     ylabel('Charges Reaching Drain');
     subplot(2,2,4);
@@ -415,9 +430,27 @@ elseif (col==6)
     ylabel('Charges within System');
 end
 
-    figure(100);
-    hold on
-    avg = mean(PlotStore(:,7));
+    %figure(100);
+    %hold on
+    %avg = mean(PlotStore(:,7));
     
-
+    for i=1:8
+        figure(i)
+        set(gcf,'Color','w');
+        if (i<=2 || i>=7)
+            subplot(2,2,1);
+            set(gca,'FontSize',16);
+            subplot(2,2,2);
+            set(gca,'FontSize',16);
+            subplot(2,2,3);
+            set(gca,'FontSize',16);
+            subplot(2,2,4);
+            set(gca,'FontSize',16);
+        else
+            subplot(2,1,1);
+            set(gca,'FontSize',16);
+            subplot(2,1,2);
+            set(gca,'FontSize',16);
+        end
+    end
 end
