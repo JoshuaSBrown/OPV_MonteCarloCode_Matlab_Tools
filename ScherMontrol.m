@@ -212,21 +212,23 @@ while i<(finish-endfit)
 end
 
 
-y = log(PlotStore(1:finish,1))*fitresult_final.p1+fitresult_final.p2;
-y2 = log(PlotStore(1:finish,1))*fitresult_final2.p1+fitresult_final2.p2;
-t = log(PlotStore(1:finish,1));
+y = exp(log(PlotStore(1:finish,1))*fitresult_final.p1+fitresult_final.p2);
+y2 = exp(log(PlotStore(1:finish,1))*fitresult_final2.p1+fitresult_final2.p2);
+t = (PlotStore(1:finish,1));
 
 figure(FigNum);
-hold on
 subplot(1,2,2);
-plot(log(PlotStore(:,1)),(log(temp)),'LineWidth',1);
+hold on
+set(gca,'xscale','log');
+set(gca,'yscale','log');
+plot((PlotStore(:,1)),((temp)),'LineWidth',1);
 xlabel('Time [s]');
 ylabel('Current');
 hold on
-plot(t,y);
-plot(t,y2);
-axis([min(log(PlotStore(:,1))) log(PlotStore(finish+40,1)) ...
-    log(temp(finish-1,1)) max(log(temp(1:finish-1,1)))*1.1]	);
+plot(t,y,'k');
+plot(t,y2,'k');
+axis([min((PlotStore(:,1))) (PlotStore(finish+40,1)) ...
+    (temp(finish-1,1)) max((temp(1:finish-1,1)))*1.1]	);
 fprintf('Alpha High %f Alpha Low %f\n',1-abs(fitresult_final.p1),abs(fitresult_final2.p1)-1);
 set(gcf,'Color','w');
 subplot(1,2,1);
