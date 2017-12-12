@@ -1,4 +1,4 @@
-function SherMontrol( FileName )
+function ScherMontrol( FileName )
 
 startfit = 100;
 endfit = 100;
