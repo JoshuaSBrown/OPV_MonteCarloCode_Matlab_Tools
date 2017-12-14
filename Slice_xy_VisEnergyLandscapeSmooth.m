@@ -87,7 +87,7 @@ mymap = [ 0 0 1
 set(gcf,'Color','w');
 colormap(mymap)
 
-plot3(SeedX,SeedY,SeedZ+0.1,'ko','LineWidth',2,'MarkerFaceColor','r','MarkerSize',5);
+plot3(SeedY,SeedX,SeedZ+0.1,'ko','LineWidth',2,'MarkerFaceColor','r','MarkerSize',5);
 
 h=colorbar;
 ylabel(h, 'Energy [eV]');
