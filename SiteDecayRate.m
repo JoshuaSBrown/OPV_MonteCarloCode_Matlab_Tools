@@ -1,5 +1,6 @@
 function  SiteDecayRate( filename,color )
-%UNTITLED Summary of this function goes here
+%Plot the number of sites that have decayed at each position along the
+%x-axis
 %   Detailed explanation goes here
 
     fid = fopen(filename,'r');

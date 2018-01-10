@@ -5,8 +5,8 @@ function Energy_bin2( FileName )
 %Unlike previous version we will start using a fixed energy increment
 %Resolution and min and max value
 
-bins = 200;
-EnergyMin = -5.6;
+bins = 300;
+EnergyMin = -5.7;
 EnergyMax = -4.8;
 
 close all
@@ -54,7 +54,7 @@ Count_Init = zeros(bins,1);
 
 %Len = Mi;
 Len = EnergyMin;
-Cutoff = 5;
+Cutoff = 1;
 Bins_Stat_NON_Viable = 0;
 Bins_Stat_NON_Viable2 = 0;
 Init_Flag = 0;

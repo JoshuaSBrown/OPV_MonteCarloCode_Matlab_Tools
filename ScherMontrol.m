@@ -1,7 +1,7 @@
 function ScherMontrol( FileName )
 
-startfit = 100;
-endfit = 100;
+startfit = 300;
+endfit = 50;
 %Determine the file type X, Y or Z type
 placeholder = strfind(FileName,'.txt');
 FileType = FileName(placeholder-1);
@@ -135,7 +135,8 @@ subplot(1,2,1);
 hold on
 plot(PlotStore(:,1),smooth(PlotStore(:,2)),'LineWidth',2);
 xlabel('Time [s]');
-ylabel('Current');
+ylabel('Current [A]');
+set(gca,'FontSize',16);
 
 yy1 = smooth(log(PlotStore(:,1)),log(temp),0.2,'loess');
 
@@ -223,7 +224,8 @@ set(gca,'xscale','log');
 set(gca,'yscale','log');
 plot((PlotStore(:,1)),((temp)),'LineWidth',1);
 xlabel('Time [s]');
-ylabel('Current');
+ylabel('Current [A]');
+set(gca,'FontSize',16);
 hold on
 plot(t,y,'k');
 plot(t,y2,'k');
@@ -233,7 +235,6 @@ fprintf('Alpha High %f Alpha Low %f\n',1-abs(fitresult_final.p1),abs(fitresult_f
 set(gcf,'Color','w');
 subplot(1,2,1);
 axis([0 PlotStore(finish,1) 0 max(temp)]);
-
 avg = mean(PlotStore(:,7));
 
 v_avg = v_sum/TotalNumberCharges;

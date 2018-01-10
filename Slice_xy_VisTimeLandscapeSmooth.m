@@ -61,14 +61,14 @@ end
 
 figure(1);
 
-h = surf(X(2:Row-1,2:Col-1),Y(2:Row-1,2:Col-1),abs(log(max(max(Time)))-log(Time(2:Row-1,2:Col-1))));
+h = surf(X(2:Row-1,2:Col-1),Y(2:Row-1,2:Col-1),abs(log(Time(2:Row-1,2:Col-1))));
 set(h,'edgecolor','none');
 xlabel('X-axis [nm]');
 ylabel('Y-axis [nm]');
 zlabel('Time');
 set(gca,'FontSize',18)
 shading interp
-% view(50,40)
+view(0,90)
 lightangle(60,60)
 h.FaceLighting = 'gouraud';
 h.AmbientStrength = 0.8;
@@ -77,7 +77,9 @@ h.SpecularStrength = 0.1;
 h.SpecularExponent = 25;
 h.BackFaceLighting = 'unlit';
 %zlim([(E0-zdiff) (E0+zdiff)]);
-%set(gca, 'CLim', [(E0-zdiff) (E0+zdiff)]);
+%min(min(abs(log(Time(2:Row-1,2:Col-1)))))
+%max(max(abs(log(Time(2:Row-1,2:Col-1)))))
+set(gca, 'CLim', [18 42]);
 %set(gca,'ZTick',linspace(-5.3,-5.1,2))
 daspect([ 1 1 1 ]);
 mymap = [ 0 0 1
@@ -86,6 +88,8 @@ mymap = [ 0 0 1
 1 1 0
 1 0 0];
 set(gcf,'Color','w');
+
+
 %colormap(flipud(mymap))
 % [Xq,Yq] = meshgrid(rangeX,rangeY);
 % Zq = interp2(rangeX,rangeY,Energy,Xq,Yq,'spline');
@@ -106,6 +110,7 @@ set(gcf,'Color','w');
 % h.BackFaceLighting = 'unlit';
 % daspect([ 1 1 0.003]);
 % colormap(mymap)
+log(max(max(Time)))
 fclose(fid);
 
 end
