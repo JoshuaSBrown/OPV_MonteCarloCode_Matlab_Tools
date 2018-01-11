@@ -1,4 +1,4 @@
-function  PlotPerc( Filename, Filename2 )
+function  PlotPerc2( Filename, Filename2 )
 %Given a .perc file (Filename) plot the percolation pathways as lines
 % NumCharges is the Number of charges that are in the file 
 % Filename 2 should be the .xyz file with the energies
@@ -18,9 +18,9 @@ if(strcmp(ext,'.xyz')~=1)
 end
 
 % Determine if the Distance file exists
-Filename3 = strcat(core,'Energy','.xyz');
-Filename4 = strcat(core,'EnergyDistFile','.xyz');
-if ~exist(Filename4,'file')==2
+Filename3 = strcat(core,'.xyz');
+Filename4 = strcat(core,'DistFile','.xyz');
+if ~(exist(Filename4,'file')==2)
     % It does not exist so create it but first check if the Energy file
     % exists
     if exist(Filename3,'file')==2
@@ -79,22 +79,23 @@ for i=1:Row
     end
 end
 
+figure(1)
 hold on
 % isovalues = (0.01:0.01:0.2);
 p = patch(isosurface(X,Y,Z,DistCube,CorRad));
 
 p.FaceColor = 'blue';
 p.EdgeColor = 'none';
-alpha('0.3')
+p.FaceAlpha = 0.1;
 daspect([1 1 1])
-view(3);
+
 axis tight
 camlight
 lighting gouraud
 
-
+set(gcf, 'Position', [200, 200, 900, 900])
 fid = fopen(Filename);
-figure
+figure(1)
 hold on;
 
 xlabel('x-axis')
@@ -138,7 +139,16 @@ while ~feof(fid)
             Y = [y_pos old_y_pos];
             Z = [z_pos old_z_pos];
             if(abs(x_pos-old_x_pos)<2 && abs(y_pos-old_y_pos)<2 && abs(z_pos-old_z_pos)<2)
-                patchline(X,Y,Z,'edgealpha',0.1,'edgecolor','k')
+                if(x_pos>0 && y_pos>0 && z_pos > 0 && old_x_pos>0 && old_y_pos>0 && old_z_pos>0)
+                    if (DistCube(x_pos,y_pos,z_pos)<=CorRad || DistCube(old_x_pos,old_y_pos,old_z_pos)<=CorRad)
+                        patchline(X,Y,Z,'edgecolor','r','edgealpha',0.08)
+                    else
+                        
+                        patchline(X,Y,Z,'edgecolor','k','edgealpha',0.08)
+                    end
+                else
+                    patchline(X,Y,Z,'edgecolor','k','edgealpha',0.08)
+                end
             end
         end
         i = 2;
@@ -156,6 +166,11 @@ fclose(fid);
 xlim([-1 200])
 ylim([0 200])
 zlim([0 200])
-saveas(gcf,'3dImagePerc','jpg')
-end
 
+view([30 30]);
+for i=1:360
+    view([29+i 30])
+    picName = strcat('Angle',num2str(i));
+    saveas(gcf,picName,'jpg')
+end
+make_video2('.','jpg','AngleVid.avi',5,'Angle')
