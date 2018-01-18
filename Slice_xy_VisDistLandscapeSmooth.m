@@ -81,8 +81,9 @@ mymap = [ 0 0 1
 1 1 0
 1 0 0];
 set(gcf,'Color','w');
-colormap(mymap)
 
+hbc = colorbar(mymap)
+ylabel(hbc,'Distance from Seed Site [nm]')
 %plot3(SeedX,SeedY,SeedZ+0.1,'ko','LineWidth',2,'MarkerFaceColor','r','MarkerSize',5);
 % [Xq,Yq] = meshgrid(rangeX,rangeY);
 % Zq = interp2(rangeX,rangeY,Energy,Xq,Yq,'spline');
