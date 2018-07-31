@@ -1,7 +1,10 @@
 function ScherMontrol( FileName )
+%This function will calculate the mobility 
+close all;
+fclose all;
 
-startfit = 300;
-endfit = 50;
+startfit = 50;
+endfit = 200;
 %Determine the file type X, Y or Z type
 placeholder = strfind(FileName,'.txt');
 FileType = FileName(placeholder-1);
@@ -40,9 +43,6 @@ fid = fopen(FileName);
 %Then all of them are plotted
 FigNum = 1;
 Resolution = 5000;
-buffer = 1000;
-count = 0;
-count2 = 0;
 
 A = textscan(fid,'%f %f %d %d %d %f %f');
 
@@ -217,7 +217,7 @@ y = exp(log(PlotStore(1:finish,1))*fitresult_final.p1+fitresult_final.p2);
 y2 = exp(log(PlotStore(1:finish,1))*fitresult_final2.p1+fitresult_final2.p2);
 t = (PlotStore(1:finish,1));
 
-figure(FigNum);
+h=figure(FigNum);
 subplot(1,2,2);
 hold on
 set(gca,'xscale','log');
@@ -231,26 +231,36 @@ plot(t,y,'k');
 plot(t,y2,'k');
 axis([min((PlotStore(:,1))) (PlotStore(finish+40,1)) ...
     (temp(finish-1,1)) max((temp(1:finish-1,1)))*1.1]	);
-fprintf('Alpha High %f Alpha Low %f\n',1-abs(fitresult_final.p1),abs(fitresult_final2.p1)-1);
 set(gcf,'Color','w');
 subplot(1,2,1);
 axis([0 PlotStore(finish,1) 0 max(temp)]);
+saveas(h,'ScherMontroll','fig');
+
+fidScherMontroll = fopen('ScherMontroll.txt','w');
+fprintf('Alpha High %f Alpha Low %f\n',1-abs(fitresult_final.p1),abs(fitresult_final2.p1)-1);
+fprintf(fidScherMontroll,'Alpha High %f Alpha Low %f\n',1-abs(fitresult_final.p1),abs(fitresult_final2.p1)-1);
+
 avg = mean(PlotStore(:,7));
 
 v_avg = v_sum/TotalNumberCharges;
+
+
 if(code==1)
     Efield = Voltage/Distance;
     mobility = v_avg/Efield;
     fprintf('Mobility in X direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+    fprintf(fidScherMontroll,'\nMobility in X direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
 elseif(code==2)
     Efield = Voltage/Distance;
     mobility = v_avg/Efield;
     fprintf('Mobility in Y direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+    fprintf(fidScherMontroll,'\nMobility in Y direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
 else
     Efield = Voltage/Distance;
     mobility = v_avg/Efield;
     fprintf('Mobility in Z direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
-    
+    fprintf(fidScherMontroll,'\nMobility in Z direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
 end
 
+fclose(fidScherMontroll);
 end
