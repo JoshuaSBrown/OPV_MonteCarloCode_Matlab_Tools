@@ -27,11 +27,7 @@ for i=1:6
    D(:,i)=C{i+1};
 end
 
-
-Distances = ones(length(D),1)*-1;
-
 Seedindices = find(D(:,4)==SeedEnergy);
-Distances(Seedindices,1)=0;
 SeedX = D(Seedindices,1);
 SeedY = D(Seedindices,2);
 SeedZ = D(Seedindices,3);
@@ -44,7 +40,7 @@ for i=1:length(SeedX)
     x = SeedX(i);
     y = SeedY(i);
     z = SeedZ(i);
-    
+    Lattice(x+1,y+1,z+1) = 0;
     x_low = x-diff;
     y_low = y-diff;
     z_low = z-diff;
