@@ -3,8 +3,9 @@ function ScherMontrol( FileName )
 close all;
 fclose all;
 
-startfit = 50;
-endfit = 200;
+startfit = 150;
+endfit = 1000;
+Resolution = 5000;
 %Determine the file type X, Y or Z type
 placeholder = strfind(FileName,'.txt');
 FileType = FileName(placeholder-1);
@@ -42,7 +43,7 @@ fid = fopen(FileName);
 %If there are fewer than 40 datapoints
 %Then all of them are plotted
 FigNum = 1;
-Resolution = 5000;
+
 
 A = textscan(fid,'%f %f %d %d %d %f %f');
 
