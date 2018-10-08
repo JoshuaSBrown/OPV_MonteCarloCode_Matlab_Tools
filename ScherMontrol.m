@@ -216,6 +216,12 @@ end
 
 y = exp(log(PlotStore(1:finish,1))*fitresult_final.p1+fitresult_final.p2);
 y2 = exp(log(PlotStore(1:finish,1))*fitresult_final2.p1+fitresult_final2.p2);
+    
+Efield = Voltage/Distance;
+transitTime = exp((fitresult_final.p2-fitresult_final2.p2)/(fitresult_final2.p1-fitresult_final.p1));
+vel_transit = Distance/transitTime;
+mob_transit = vel_transit/Efield;
+
 t = (PlotStore(1:finish,1));
 
 h=figure(FigNum);
@@ -247,20 +253,26 @@ v_avg = v_sum/TotalNumberCharges;
 
 
 if(code==1)
-    Efield = Voltage/Distance;
+
     mobility = v_avg/Efield;
     fprintf('Mobility in X direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+    fprintf('Transit Mobility in X direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mob_transit,Efield);
     fprintf(fidScherMontroll,'\nMobility in X direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+    fprintf(fidScherMontroll,'\nTransit Mobility in X direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mob_transit,Efield);
 elseif(code==2)
-    Efield = Voltage/Distance;
+    
     mobility = v_avg/Efield;
     fprintf('Mobility in Y direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+    fprintf('Transit Mobility in Y direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mob_transit,Efield);
     fprintf(fidScherMontroll,'\nMobility in Y direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+    fprintf(fidScherMontroll,'\nTransit Mobility in Y direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mob_transit,Efield);
 else
-    Efield = Voltage/Distance;
+    
     mobility = v_avg/Efield;
     fprintf('Mobility in Z direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+    fprintf('Transit Mobility in Z direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mob_transit,Efield);
     fprintf(fidScherMontroll,'\nMobility in Z direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mobility,Efield);
+    fprintf(fidScherMontroll,'\nTransit Mobility in Z direction %g [cm^2/Vs] in Efield %g [V/cm]\n',mob_transit,Efield);
 end
 
 fclose(fidScherMontroll);
